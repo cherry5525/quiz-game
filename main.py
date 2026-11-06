@@ -94,7 +94,7 @@ class QuizGame:
             elif choice == 3:
                 self.show_list()
             elif choice == 4:
-                print("(점수 확인 - 준비 중)")
+                self.show_score()
             elif choice == 5:
                 print("프로그램을 종료합니다.")
                 break
@@ -150,6 +150,11 @@ class QuizGame:
             print(f"[{i}] {quiz.question}")
         print("-" * 40)
 
+    def show_score(self):
+        if self.best_score is None:
+            print("⚠️ 아직 퀴즈를 풀지 않았습니다.")
+        else:
+            print(f"\n🏆 최고 점수: {self.best_score}점")
 
 if __name__ == "__main__":
     game = QuizGame()
