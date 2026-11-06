@@ -84,7 +84,7 @@ quiz-game/
 ```
 
 ## 실행 화면
-스크린샷을 `docs/screenshots/`에 저장한 뒤 아래 주석을 풀어 사용하세요.
+스크린샷을 `docs/screenshots/`에 저장
 
 
 ![메뉴](docs/screenshots/menu.png)
