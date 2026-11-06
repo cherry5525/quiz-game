@@ -15,6 +15,15 @@ def read_int(prompt, low, high):
             continue
         return number
 
+def read_text(prompt):
+    """빈 문자열이 아닌 텍스트를 입력받는다."""
+    while True:
+        text = input(prompt).strip()
+        if text == "":
+            print("⚠️ 입력이 비어 있습니다. 다시 입력하세요.")
+            continue
+        return text
+
 class Quiz:
     def __init__(self, question, choices, answer):
         self.question = question      # 문제 (str)
@@ -81,7 +90,7 @@ class QuizGame:
             if choice == 1:
                 self.play()
             elif choice == 2:
-                print("(퀴즈 추가 - 준비 중)")
+                self.add_quiz()
             elif choice == 3:
                 print("(퀴즈 목록 - 준비 중)")
             elif choice == 4:
@@ -119,6 +128,17 @@ class QuizGame:
         if self.best_score is None or score > self.best_score:
             self.best_score = score
             print("🎉 새로운 최고 점수입니다!")
+
+    def add_quiz(self):
+        print("\n📌 새로운 퀴즈를 추가합니다.\n")
+        question = read_text("문제를 입력하세요: ")
+        choices = []
+        for i in range(1, 5):
+            choices.append(read_text(f"선택지 {i}: "))
+        answer = read_int("정답 번호 (1-4): ", 1, 4)
+
+        self.quizzes.append(Quiz(question, choices, answer))
+        print("\n✅ 퀴즈가 추가되었습니다!")
 
 
 if __name__ == "__main__":
