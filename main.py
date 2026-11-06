@@ -79,7 +79,7 @@ class QuizGame:
             self.show_menu()
             choice = read_int("선택: ", 1, 5)
             if choice == 1:
-                print("(퀴즈 풀기 - 준비 중)")
+                self.play()
             elif choice == 2:
                 print("(퀴즈 추가 - 준비 중)")
             elif choice == 3:
@@ -89,6 +89,36 @@ class QuizGame:
             elif choice == 5:
                 print("프로그램을 종료합니다.")
                 break
+
+    def play(self):
+        if not self.quizzes:
+            print("⚠️ 등록된 퀴즈가 없습니다. 먼저 퀴즈를 추가하세요.")
+            return
+
+        total = len(self.quizzes)
+        print(f"\n📝 퀴즈를 시작합니다! (총 {total}문제)\n")
+        correct = 0
+
+        for i, quiz in enumerate(self.quizzes, start=1):
+            print("-" * 40)
+            quiz.show(i)
+            user_answer = read_int("정답 입력: ", 1, 4)
+            if quiz.is_correct(user_answer):
+                print("✅ 정답입니다!\n")
+                correct += 1
+            else:
+                print(f"❌ 오답입니다. 정답은 {quiz.answer}번입니다.\n")
+
+        score = int(correct / total * 100)
+        print("=" * 40)
+        print(f"🏆 결과: {total}문제 중 {correct}문제 정답! ({score}점)")
+        self.update_best_score(score)
+        print("=" * 40)
+
+    def update_best_score(self, score):
+        if self.best_score is None or score > self.best_score:
+            self.best_score = score
+            print("🎉 새로운 최고 점수입니다!")
 
 
 if __name__ == "__main__":
