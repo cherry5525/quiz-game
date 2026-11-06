@@ -91,3 +91,5 @@ quiz-game/
 ![퀴즈 풀기](docs/screenshots/play.png)
 ![퀴즈 추가](docs/screenshots/add_quiz.png)
 ![점수 확인](docs/screenshots/score.png)
+
+quiz-game-clone/README.md
