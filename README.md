@@ -83,9 +83,18 @@ quiz-game/
 }
 ```
 
-## 실행 화면
-스크린샷을 `docs/screenshots/`에 저장
+## 개발 환경
+Python 버전, Git 버전, VS Code 환경입니다.
 
+![개발 환경](docs/screenshots/dev_env.png)
+
+## Git 작업 기록
+`git log --oneline --graph` 결과입니다. 기능 단위로 커밋했고, `feature/play-quiz` 브랜치를 만들어 작업한 뒤 main에 병합했습니다.
+
+![git log](docs/screenshots/git_log.png)
+
+
+## 실행 화면
 
 ![메뉴](docs/screenshots/menu.png)
 ![퀴즈 풀기](docs/screenshots/play.png)
