@@ -15,6 +15,39 @@ def read_int(prompt, low, high):
             continue
         return number
 
+class Quiz:
+    def __init__(self, question, choices, answer):
+        self.question = question      # 문제 (str)
+        self.choices = choices        # 선택지 (list, 4개)
+        self.answer = answer          # 정답 번호 (int, 1~4)
+
+    def show(self, number=None):
+        """문제와 선택지를 출력한다."""
+        if number is not None:
+            print(f"[문제 {number}]")
+        print(self.question)
+        print()
+        for i, choice in enumerate(self.choices, start=1):
+            print(f"{i}. {choice}")
+        print()
+
+    def is_correct(self, user_answer):
+        """사용자의 답이 정답인지 True/False로 돌려준다."""
+        return user_answer == self.answer
+
+    def to_dict(self):
+        """JSON 저장용 딕셔너리로 변환한다."""
+        return {
+            "question": self.question,
+            "choices": self.choices,
+            "answer": self.answer,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        """딕셔너리에서 Quiz 객체를 만든다. (불러오기용)"""
+        return cls(data["question"], data["choices"], data["answer"])
+
 
 class QuizGame:
     def __init__(self):
