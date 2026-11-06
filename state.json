@@ -1,0 +1,65 @@
+{
+    "quizzes": [
+        {
+            "question": "Python의 창시자는?",
+            "choices": [
+                "Guido van Rossum",
+                "Linus Torvalds",
+                "Bjarne Stroustrup",
+                "James Gosling"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "리스트를 나타내는 기호는?",
+            "choices": [
+                "()",
+                "[]",
+                "{}",
+                "<>"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "화면에 값을 출력하는 함수는?",
+            "choices": [
+                "input",
+                "print",
+                "show",
+                "echo"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "정수 자료형의 이름은?",
+            "choices": [
+                "str",
+                "bool",
+                "int",
+                "dict"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "조건이 거짓일 때 실행되는 키워드는?",
+            "choices": [
+                "elif",
+                "for",
+                "else",
+                "while"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "코디세이 과정은 몇 개 일까요?",
+            "choices": [
+                "1개",
+                "2개",
+                "3개",
+                "4개"
+            ],
+            "answer": 2
+        }
+    ],
+    "best_score": 100
+}
