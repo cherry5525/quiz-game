@@ -51,8 +51,17 @@ class Quiz:
 
 class QuizGame:
     def __init__(self):
-        self.quizzes = []
+        self.quizzes = self.default_quizzes()
         self.best_score = None
+
+    def default_quizzes(self):
+        return [
+            Quiz("Python의 창시자는?", ["Guido van Rossum", "Linus Torvalds", "Bjarne Stroustrup", "James Gosling"], 1),
+            Quiz("리스트를 나타내는 기호는?", ["()", "[]", "{}", "<>"], 2),
+            Quiz("화면에 값을 출력하는 함수는?", ["input", "print", "show", "echo"], 2),
+            Quiz("정수 자료형의 이름은?", ["str", "bool", "int", "dict"], 3),
+            Quiz("조건이 거짓일 때 실행되는 키워드는?", ["elif", "for", "else", "while"], 3),
+        ]
 
     def show_menu(self):
         print("=" * 40)
@@ -85,3 +94,4 @@ class QuizGame:
 if __name__ == "__main__":
     game = QuizGame()
     game.run()
+
