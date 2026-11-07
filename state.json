@@ -125,6 +125,27 @@
             "correct": 6,
             "hints_used": 2,
             "score": 83
+        },
+        {
+            "played_at": "2026-11-07 19:57:19",
+            "total": 5,
+            "correct": 2,
+            "hints_used": 0,
+            "score": 40
+        },
+        {
+            "played_at": "2026-11-07 19:57:21",
+            "total": 1,
+            "correct": 1,
+            "hints_used": 0,
+            "score": 100
+        },
+        {
+            "played_at": "2026-11-07 19:57:22",
+            "total": 1,
+            "correct": 1,
+            "hints_used": 0,
+            "score": 100
         }
     ]
 }
