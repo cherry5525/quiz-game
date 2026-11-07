@@ -8,7 +8,8 @@
                 "Bjarne Stroustrup",
                 "James Gosling"
             ],
-            "answer": 1
+            "answer": 1,
+            "hint": ""
         },
         {
             "question": "리스트를 나타내는 기호는?",
@@ -18,7 +19,8 @@
                 "{}",
                 "<>"
             ],
-            "answer": 2
+            "answer": 2,
+            "hint": ""
         },
         {
             "question": "화면에 값을 출력하는 함수는?",
@@ -28,7 +30,8 @@
                 "show",
                 "echo"
             ],
-            "answer": 2
+            "answer": 2,
+            "hint": ""
         },
         {
             "question": "정수 자료형의 이름은?",
@@ -38,7 +41,8 @@
                 "int",
                 "dict"
             ],
-            "answer": 3
+            "answer": 3,
+            "hint": ""
         },
         {
             "question": "조건이 거짓일 때 실행되는 키워드는?",
@@ -48,7 +52,8 @@
                 "else",
                 "while"
             ],
-            "answer": 3
+            "answer": 3,
+            "hint": ""
         },
         {
             "question": "코디세이 과정은 몇 개 일까요?",
@@ -58,8 +63,18 @@
                 "3개",
                 "4개"
             ],
-            "answer": 2
+            "answer": 2,
+            "hint": ""
         }
     ],
-    "best_score": 100
+    "best_score": 100,
+    "history": [
+        {
+            "played_at": "2026-11-07 19:17:18",
+            "total": 3,
+            "correct": 1,
+            "hints_used": 0,
+            "score": 33
+        }
+    ]
 }
