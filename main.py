@@ -1,9 +1,12 @@
 import json
+import os
 import random
 from datetime import datetime
 from pathlib import Path
 
 STATE_FILE = Path(__file__).parent / "state.json"   # main.py와 같은 폴더(프로젝트 루트)
+BACKUP_FILE = STATE_FILE.with_name("state.json.bak")   # 저장 직전의 정상 파일 백업
+TEMP_FILE = STATE_FILE.with_name("state.json.tmp")     # 원자적 저장용 임시 파일
 
 
 def read_int(prompt, low, high):
@@ -275,28 +278,57 @@ class QuizGame:
             "history": self.history,
         }
         try:
-            with open(STATE_FILE, "w", encoding="utf-8") as f:
+            # 1) 임시 파일에 먼저 쓰고  2) 기존 파일을 백업한 뒤  3) 교체한다 (쓰다 중단돼도 원본 보존)
+            with open(TEMP_FILE, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=4)
+                f.flush()
+                os.fsync(f.fileno())
+            if STATE_FILE.exists():
+                try:
+                    self.read_state(STATE_FILE)          # 정상 파일일 때만 백업 갱신
+                    os.replace(STATE_FILE, BACKUP_FILE)
+                except (OSError, json.JSONDecodeError, KeyError, TypeError, ValueError):
+                    pass                                 # 손상된 파일로 기존 백업을 덮어쓰지 않는다
+            os.replace(TEMP_FILE, STATE_FILE)
         except OSError:
-            print("⚠️ 파일을 저장하지 못했습니다.")
+            print("⚠️ 파일을 저장하지 못했습니다. 폴더 쓰기 권한과 디스크 공간을 확인하세요.")
+
+    def read_state(self, path):
+        """파일을 읽고 검증해 (quizzes, best_score, history)를 돌려준다. 잘못되면 예외를 낸다."""
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, dict) or not isinstance(data.get("quizzes"), list):
+            raise ValueError("format")
+        quizzes = [Quiz.from_dict(q) for q in data["quizzes"]]   # 형식 검증 포함
+        best_score = data["best_score"]
+        if best_score is not None and (type(best_score) is not int or not 0 <= best_score <= 100):
+            raise ValueError("best_score")
+        history = data.get("history", [])       # 예전 파일에는 history가 없을 수 있다
+        self.check_history(history)
+        return quizzes, best_score, history
 
     def load(self):
         if not STATE_FILE.exists():
             print("📂 저장 파일이 없어 기본 퀴즈로 시작합니다.")
             return
+        errors = (OSError, json.JSONDecodeError, KeyError, TypeError, ValueError)
         try:
-            with open(STATE_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-            if not isinstance(data, dict) or not isinstance(data.get("quizzes"), list):
-                raise ValueError("format")
-            quizzes = [Quiz.from_dict(q) for q in data["quizzes"]]   # 형식 검증 포함
-            best_score = data["best_score"]
-            if best_score is not None and (type(best_score) is not int or not 0 <= best_score <= 100):
-                raise ValueError("best_score")
-            history = data.get("history", [])       # 예전 파일에는 history가 없을 수 있다
-            self.check_history(history)
-        except (OSError, json.JSONDecodeError, KeyError, TypeError, ValueError):
-            print("⚠️ 저장 파일이 손상되어 기본 퀴즈로 초기화합니다.")
+            quizzes, best_score, history = self.read_state(STATE_FILE)
+        except errors:
+            try:
+                quizzes, best_score, history = self.read_state(BACKUP_FILE)
+                print("⚠️ 저장 파일이 손상되어 백업(state.json.bak)에서 복구합니다.")
+                self.quizzes, self.best_score, self.history = quizzes, best_score, history
+                self.save()
+                return
+            except errors:
+                pass
+            if STATE_FILE.exists():                  # 손상 파일은 지우지 않고 보관
+                try:
+                    os.replace(STATE_FILE, STATE_FILE.with_name("state.json.corrupt"))
+                except OSError:
+                    pass
+            print("⚠️ 저장 파일이 손상되어 기본 퀴즈로 초기화합니다. (손상 파일: state.json.corrupt)")
             self.quizzes = self.default_quizzes()
             self.best_score = None
             self.history = []

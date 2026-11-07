@@ -1,0 +1,27 @@
+﻿95f5aa2 2026-11-06 Chore:프로젝트 초기 설정 (.gitignore, README)
+0d44db1 2026-11-06 Feat: 메뉴 및 숫자 입력 검증 구현
+9bb8773 2026-11-06 Feat: Quiz 클래스 작성
+8450d36 2026-11-06 Feat: 기본 퀴즈 데이터 5개 작성
+a217edd 2026-11-06 Feat: 퀴즈 풀기 기능 구현
+22dec73 2026-11-06 Feat: 퀴즈 추가 기능 구현
+1de845c 2026-11-06 Feat: 퀴즈 목록 기능 구현
+9526542 2026-11-06 Feat: 최고 점수 확인 기능 구현
+68eb4b5 2026-11-06 Feat: state.json 저장/불러오기 및 예외 처리 구현
+ad8be8c 2026-11-06 Docs: README 작성
+8ee3112 2026-11-06 Docs: README 작성
+f4c2f64 2026-11-06 Docs: README에 clone 실습 내용 추가
+4b17cb3 2026-11-06 Docs: 스크린샷 파일명 수정 및 실행 화면 추가
+1ee4743 2026-11-07 Fix: best_score 검증 추가, 점수 반올림, 퀴즈 검증을 from_dict로 이동 및 기본 퀴즈 보강
+e859a7a 2026-11-07 Fix: load()에서 state.json 최상위/quizzes 타입 검증 강화
+fb91681 2026-11-07 Docs: README에 Git 병합/clone/pull 실습 기록 섹션 추가
+c35318f 2026-11-07 Merge branch 'feature/readme-git-evidence' into main
+7efdadc 2026-11-07 Docs: clone 복제본에서 pull 실습용 문장 추가
+6ca7298 2026-11-07 log 수정
+b140386 2026-11-07 Feat: 보너스 기능 구현 (랜덤 출제, 문제 수 선택, 힌트, 퀴즈 삭제, 점수 히스토리)
+f2f7506 2026-11-07 Docs: README에 보너스 기능과 state.json 스키마 추가
+8879046 2026-11-07 Merge branch 'feature/bonus' into main
+45798bf 2026-11-07 Docs: README 퀴즈 풀기 설명을 랜덤 출제로 수정, state.json에 게임 기록 반영
+caca134 2026-11-07 Refactor: 기본 퀴즈를 코디세이 주제로 변경해 state.json과 동기화
+ff75962 2026-11-07 Docs: 퀴즈 주제 변경 반영 (README 주제/state.json 예시, 장학금 문제 표현 수정)
+4912a37 2026-11-07 새 퀴즈 기준 스크린샷
+4ccb21e 2026-11-07 log 스크린샷 수정

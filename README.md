@@ -9,6 +9,46 @@
 - 사용 기술: 클래스(`Quiz`, `QuizGame`), JSON 파일 입출력, 예외 처리(try/except)
 - 버전 관리: Git / GitHub (기능 단위 커밋, 브랜치 작업 후 병합)
 
+## 과제 목표와 이 프로젝트에서의 적용
+이 과제를 마친 후 아래 내용을 스스로 설명할 수 있어야 하며, 각 항목이 이 프로젝트의 어디에 쓰였는지 함께 정리했습니다.
+
+### Python 기초
+| 목표 | 이 프로젝트에서의 예 |
+|---|---|
+| 변수가 무엇이고 왜 쓰는가 | 값에 이름을 붙여 저장하고 재사용합니다. `correct`, `points`, `best_score`, `STATE_FILE` |
+| int / str / bool / list / dict 차이 | int: 점수·정답 번호, str: 문제·힌트, bool: `hint_used`, list: `quizzes`·`choices`, dict: `to_dict()`·`history` 기록 |
+| if / elif / else | 메뉴 선택(`run()`), 정답/오답 판정(`play()`), 입력 검증(`read_int()`) |
+| for와 while의 차이 | `for`는 횟수·대상이 정해진 반복(문제 출제, 목록 출력), `while True`는 올바른 입력이 올 때까지 반복(`read_int()`, 메뉴 루프) |
+| 함수의 매개변수와 반환값 | `read_int(prompt, low, high)`는 검증된 정수를 반환합니다. `read_text(prompt)`도 같은 방식입니다. |
+
+### 클래스와 객체
+| 목표 | 이 프로젝트에서의 예 |
+|---|---|
+| 클래스란 무엇이고 왜 쓰는가 | 데이터와 기능을 하나로 묶어 역할을 분리합니다. 퀴즈 하나는 `Quiz`, 게임 전체는 `QuizGame`이 맡습니다. |
+| `__init__`과 `self` | `__init__`은 객체 생성 시 속성을 초기화하고, `self`는 그 객체 자신을 가리킵니다. 예: `self.question = question` |
+| 속성(attribute)과 메서드(method) | 속성: `question`, `choices`, `answer`, `hint`, `best_score` / 메서드: `show()`, `is_correct()`, `play()`, `save()` |
+
+### 파일 입출력
+| 목표 | 이 프로젝트에서의 예 |
+|---|---|
+| 파일 열기·읽기·쓰기 | `open(..., "r"/"w", encoding="utf-8")`로 열고 `json.load()`·`json.dump()`로 읽고 씁니다. (`load()`, `save()`) |
+| JSON을 쓰는 이유 | list/dict 구조를 그대로 텍스트로 저장할 수 있고, 사람이 읽기 쉬우며 언어 간 호환성이 좋습니다. (`state.json`) |
+| try / except 오류 처리 | 파일 없음·손상(`OSError`, `JSONDecodeError`), 숫자 아닌 입력(`ValueError`), `Ctrl+C`(`KeyboardInterrupt`) 처리 |
+
+### Git 기초
+| 목표 | 이 프로젝트에서의 예 |
+|---|---|
+| Git이란, 왜 필요한가 | 변경 이력을 기록해 되돌리고 협업할 수 있게 하는 버전 관리 도구입니다. 기능 단위로 커밋했습니다. |
+| `init` | 현재 폴더를 Git 저장소로 만듭니다. |
+| `add` | 변경한 파일을 커밋 대상(스테이징)에 올립니다. |
+| `commit` | 스테이징한 변경을 이력으로 저장합니다. |
+| `push` | 로컬 커밋을 원격 저장소(GitHub)에 올립니다. |
+| `pull` | 원격의 변경사항을 가져와 합칩니다. |
+| `checkout` | 브랜치를 전환하거나 파일을 이전 상태로 되돌립니다. (`git checkout state.json`) |
+| `clone` | 원격 저장소를 통째로 복제합니다. |
+| 브랜치 생성·병합 | `feature/play-quiz`, `feature/bonus` 등을 만들어 작업하고 `main`에 병합했습니다. ([docs/git_log.txt](docs/git_log.txt)) |
+| clone 후 pull | 별도 폴더에 clone한 뒤 원본의 변경사항을 pull로 가져오는 실습을 했습니다. |
+
 ## 퀴즈 주제와 선정 이유
 **주제: 코디세이 올인원 과정**
 
@@ -147,3 +187,31 @@ quiz-game-clone/README.md
 - 별도 폴더에 clone → 수정/commit/push → 원본에서 pull 순서로 실습했습니다.
 
 - (clone 복제본에서 추가) pull 실습 확인용 문장
+
+
+## 안정성 · 저장 방식
+- **원자적 저장**: `state.json.tmp`에 먼저 쓴 뒤 `os.replace`로 교체하므로, 저장 중 중단돼도 원본이 깨지지 않습니다.
+- **자동 백업**: 저장 직전 정상 파일을 `state.json.bak`으로 보관합니다. 손상된 파일로 백업을 덮어쓰지 않습니다.
+- **복구 순서**: `state.json` 손상 시 → `state.json.bak`에서 복구 → 백업도 없거나 손상이면 기본 퀴즈로 초기화(손상 파일은 `state.json.corrupt`로 보관).
+- **저장 순서**: 퀴즈(`quizzes`) → 최고 점수(`best_score`) → 기록(`history`).
+- **저장 실패 시**: 폴더 쓰기 권한과 디스크 공간을 확인하세요. (Windows: 폴더 속성 > 보안, Mac/Linux: `chmod u+w`)
+- **동시 실행**: 한 번에 한 프로세스만 실행하는 것을 전제로 합니다.
+
+## 기본 퀴즈와 확장성
+- 기본 제공 퀴즈: **8개** (`default_quizzes()`, 최초 실행 시 `state.json`에 저장)
+- 대용량: 퀴즈 수천 개 수준까지는 `random.sample`과 JSON 로드가 즉시 끝나므로 문제없습니다. 그보다 커지거나 동시 접근이 필요하면 SQLite 전환을 고려합니다.
+
+## 기능별 메서드 매핑
+| 기능 | 위치 |
+|---|---|
+| 입력 검증 | `read_int()`, `read_text()` |
+| 정오답 판정 | `Quiz.is_correct()` |
+| 퀴즈 진행 | `QuizGame.play()`, `ask_answer()` |
+| 점수 | `update_best_score()`, `add_history()` |
+| 저장/불러오기 | `save()`, `load()`, `read_state()` |
+| 직렬화 | `Quiz.to_dict()`, `Quiz.from_dict()` |
+
+## 커밋 규칙과 증빙
+- 메시지 형식: `Type: 내용` (Type = Feat / Fix / Docs / Refactor / Chore). 예: `Feat: 퀴즈 추가 기능 구현`
+- 커밋 수: 27개 이상 — 전체 로그 텍스트는 [docs/git_log.txt](docs/git_log.txt), 그래프는 [docs/git_graph.txt](docs/git_graph.txt)
+- 스크린샷 설명: `dev_env.png`(python/git 버전), `git_log.png`(`git log --oneline --graph`), `menu.png`(메뉴), `play.png`(퀴즈 풀기), `add_quiz.png`(퀴즈 추가), `score.png`(점수 확인)
