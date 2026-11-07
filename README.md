@@ -12,7 +12,7 @@
 ## 퀴즈 주제와 선정 이유
 **주제: Python 기초 문법**
 
-(여기에 본인의 이유를 2~3문장으로 작성하세요. 예: 이번 미션을 하면서 배운 문법을 퀴즈로 다시 확인하면 복습이 되기 때문에 선택했습니다. 직접 문제를 만들면서 변수, 자료형, 조건문 개념을 한 번 더 정리할 수 있었습니다.)
+이번 미션을 하면서 배운 문법을 퀴즈로 다시 확인하면 복습이 되기 때문에 선택했습니다. 직접 문제를 만들면서 변수, 자료형, 조건문 개념을 한 번 더 정리할 수 있었습니다.
 
 ## 실행 방법
 1. Python 3.10 이상이 설치되어 있어야 합니다.
@@ -46,9 +46,17 @@
 ```
 quiz-game/
 ├── main.py        # Quiz, QuizGame 클래스와 프로그램 진입점
-├── state.json     # 퀴즈 목록과 최고 점수 저장 파일
+├── state.json     # 퀴즈 목록과 최고 점수 저장 파일 (기본 예시 데이터 포함)
 ├── README.md      # 프로젝트 설명
-└── .gitignore     # Git 추적 제외 목록
+├── .gitignore     # Git 추적 제외 목록
+└── docs/
+    └── screenshots/
+        ├── add_quiz.png   # 퀴즈 추가 화면
+        ├── dev_env.png    # 개발 환경
+        ├── git_log.png    # git log 결과
+        ├── menu.png       # 메뉴 화면
+        ├── play.png       # 퀴즈 풀기 화면
+        └── score.png      # 점수 확인 화면
 ```
 
 **main.py 구성**
@@ -101,4 +109,6 @@ Python 버전, Git 버전, VS Code 환경입니다.
 ![퀴즈 추가](docs/screenshots/add_quiz.png)
 ![점수 확인](docs/screenshots/score.png)
 
+
+## clone 실습으로 추가한 줄입니다
 quiz-game-clone/README.md
