@@ -190,6 +190,8 @@ class QuizGame:
         try:
             with open(STATE_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
+            if not isinstance(data, dict) or not isinstance(data.get("quizzes"), list):
+                raise ValueError("format")
             quizzes = [Quiz.from_dict(q) for q in data["quizzes"]]   # 형식 검증 포함
             best_score = data["best_score"]
             if best_score is not None and (type(best_score) is not int or not 0 <= best_score <= 100):
