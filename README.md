@@ -115,3 +115,5 @@ quiz-game-clone/README.md
 ## Git 실습 기록
 - 브랜치 작업 후 git merge --no-ff로 병합 커밋을 남겼습니다.
 - 별도 폴더에 clone → 수정/commit/push → 원본에서 pull 순서로 실습했습니다.
+
+- (clone 복제본에서 추가) pull 실습 확인용 문장
