@@ -112,3 +112,6 @@ Python 버전, Git 버전, VS Code 환경입니다.
 
 ## clone 실습으로 추가한 줄입니다
 quiz-game-clone/README.md
+## Git 실습 기록
+- 브랜치 작업 후 git merge --no-ff로 병합 커밋을 남겼습니다.
+- 별도 폴더에 clone → 수정/commit/push → 원본에서 pull 순서로 실습했습니다.
